@@ -8,6 +8,7 @@ import Main from '../Main/Main';
 import Home from '../Pages/Home/Home';
 import Login from '../Pages/SocialLogin/Login/Login';
 import Signup from '../Pages/SocialLogin/SignUp/Signup';
+import PrivateRoutes from './PrivateRoutes';
 
 const Routes = () => {
     const routes = createBrowserRouter([
@@ -22,15 +23,15 @@ const Routes = () => {
                 },
                 {
                     path:'/addtask',
-                    element:<AddTask></AddTask>
+                    element:<PrivateRoutes><AddTask></AddTask></PrivateRoutes>
                 },
                 {
                     path:'/mytask',
-                    element:<MyTask></MyTask>
+                    element:<PrivateRoutes><MyTask></MyTask></PrivateRoutes>
                 },
                 {
                     path:'/completedtask',
-                    element:<CompletedTask></CompletedTask>
+                    element:<PrivateRoutes><CompletedTask></CompletedTask></PrivateRoutes>
                 },
                 {
                     path:'/login',

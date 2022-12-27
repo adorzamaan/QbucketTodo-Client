@@ -5,7 +5,7 @@ const LoadingSpinner = () => {
         <div className="flex h-[84vh] items-center justify-center">
         <button
           type="button"
-          className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-gradient-to-tr from-primary to-secondary  hover:bg-blue-700 transition ease-in-out cursor-not-allowed"
+          className="inline-flex items-center px-4 py-2 font-semibold leading-6 text-sm shadow rounded-md text-white bg-accent  hover:bg-slate-700 transition ease-in-out cursor-not-allowed"
           disabled=""
         >
           <svg
@@ -28,7 +28,7 @@ const LoadingSpinner = () => {
               d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
             ></path>
           </svg>
-          Please Wait, coming soon...
+         Coming soon...
         </button>
       </div>
     );

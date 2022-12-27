@@ -1,18 +1,15 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
-import SmallSpinner from "../Shared/Spinner/SmallSpinner";
+import { authContext } from "../../Context/AuthProvider";
 
 const AddTask = () => {
   const { register, handleSubmit } = useForm();
-  const [loading,setLoading] = useState(false)
-
+  const { user } = useContext(authContext);
   const handleAddTask = (data) => {
-    // console.log('Hello',data);
     const date = new Date().toLocaleDateString();
-    const time = new Date().toLocaleTimeString()
+    const time = new Date().toLocaleTimeString();
     const image = data.image[0];
-    // console.log(image);
     const formData = new FormData();
     formData.append("image", image);
     const url = `https://api.imgbb.com/1/upload?key=${process.env.REACT_APP_IMG_BB_HOST_KEY}`;
@@ -25,15 +22,13 @@ const AddTask = () => {
         console.log(imageData);
         const addtask = {
           name: data.name,
-          taskDate:date,
-          taskStart:time,
+          taskDate: date,
+          taskStart: time,
           task: data.taskname,
           email: data.email,
           image: imageData.data.url,
         };
-        console.log(addtask);
         // save informatin to database
-        setLoading(true)
         fetch(`${process.env.REACT_APP_SERVER_API}/addtask`, {
           method: "POST",
           headers: {
@@ -43,17 +38,15 @@ const AddTask = () => {
         })
           .then((res) => res.json())
           .then((result) => {
-            // console.log(data);
-            if(result.acknowledged > 0){
-              toast.success(`Hey ${data.name} your task Added Successfully`)
+            if (result.acknowledged > 0) {
+              toast.success(`Hey ${data.name} your task Added Successfully`);
             }
-            setLoading(false)
           });
       });
   };
 
   return (
-    <div className="px-12 md:h-screen flex justify-center items-center dark:text-white">
+    <div className="px-12  flex justify-center items-center dark:text-white">
       <div>
         <h3 className="font-bold py-6">Add New Task</h3>
         <div className=" w-full md:p-8 space-y-3 rounded-xl shadow-sm ">
@@ -94,6 +87,8 @@ const AddTask = () => {
             <input
               type="email"
               placeholder="Email"
+              defaultValue={user?.email}
+              readOnly
               {...register("email", { required: "email is required" })}
               className="w-full px-4 py-2 rounded-md border-gray-200 dark:border-gray-700 dark:bg-gray-800 border bg-white  text-gray-800 dark:text-white "
             />
@@ -113,7 +108,9 @@ const AddTask = () => {
             />
             <button
               type="submit"
-              className="block w-full py-1 px-6 dark:hover:bg-accent dark:bg-gray-700 text-center rounded-sm text-white bg-accent">{loading ? <SmallSpinner></SmallSpinner>:"Add"}
+              className="block w-full py-1 px-6 dark:hover:bg-accent dark:bg-gray-700 text-center rounded-sm text-white hover:bg-accent bg-slate-800"
+            >
+              Add
             </button>
           </form>
         </div>

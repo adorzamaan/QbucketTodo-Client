@@ -1,14 +1,26 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { authContext } from "../../../Context/AuthProvider";
 import DarkLightMode from "../../../DarkLightMode/DarkLightMode";
 import PrimaryButton from "../PrimaryButton/PrimaryButton";
-import './Header.css';
+import "./Header.css";
 const Header = () => {
+  const { user,logOut } = useContext(authContext);
+
+const handleLogOut = ()=>{
+  logOut()
+  .then(()=>{})
+  .catch(err => {})
+}
+
   return (
     <div className="container mx-auto navbar flex justify-between">
       <div className="navbar-start">
         <div className="dropdown">
-          <label tabIndex={0} className="btn btn-ghost lg:hidden dark:text-white">
+          <label
+            tabIndex={0}
+            className="btn btn-ghost lg:hidden dark:text-white"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               className="h-5 w-5"
@@ -30,71 +42,48 @@ const Header = () => {
           >
             <NavLink to="/addtask">Add Task</NavLink>
 
-<NavLink to="/mytask">My Task</NavLink>
+            <NavLink to="/mytask">My Task</NavLink>
 
-<NavLink to="/completedtask">Completed Task</NavLink>
+            <NavLink to="/completedtask">Completed Task</NavLink>
 
-            {/* {user && user.uid && (
-              <>
-                <label htmlFor="my-drawer-2" tabIndex={3} className="lg:hidden">
-                  <span className="ml-3">Dashboard</span>
-                </label>
-              </>
-            )} */}
+          
           </div>
         </div>
         <p className="">
           <Link to="/" className="font-bold text-sm md:text-xl dark:text-white">
-           Qbucket Todo
-            
+            Qbucket Todo
           </Link>
         </p>
       </div>
       <div className="navbar-center text-end hidden lg:flex">
         <div className="menu cusotmClass menu-horizontal p-0 dark:text-white">
-        <NavLink to="/addtask">Add Task</NavLink>
+          <NavLink to="/addtask">Add Task</NavLink>
 
-<NavLink to="/mytask">My Task</NavLink>
+          <NavLink to="/mytask">My Task</NavLink>
 
-<NavLink to="/completedtask">Completed Task</NavLink>
-
-
+          <NavLink to="/completedtask">Completed Task</NavLink>
         </div>
       </div>
       <div className="navbar-end">
-        {/* <button
-          type="button"
-          className="py-1 text-white px-4 bg-accent rounded-lg"
-        >
-          SignOut
-        </button>
-       */}
-       <DarkLightMode></DarkLightMode>
-      <Link to='/login'><PrimaryButton>Login</PrimaryButton></Link>
-        {/* {user && user.uid ? (
+        <DarkLightMode></DarkLightMode>
+        {user && user.uid ? (
           <>
-            <button
+           <button
               onClick={handleLogOut}
               type="button"
-              className="py-1 text-white px-4 bg-accent rounded-lg"
+              className="py-1 text-white px-4 bg-accent rounded-lg text-sm"
             >
               SignOut
             </button>
-            <Link to="/dashboard">
-              {" "}
-              <UserCircleIcon className="w-5 h-5 text-white bg-accent rounded-full m-2 active"></UserCircleIcon>
-            </Link>
+            <img src={user?.photoURL} alt="" className="w-12 h-12 mx-4 rounded-full" />
           </>
         ) : (
           <>
-            <Link
-              to="/login"
-              className="py-1 text-white px-6 bg-gradient-to-r from-primary to-secondary"
-            >
-              Login
+            <Link to="/login">
+              <PrimaryButton>Login</PrimaryButton>
             </Link>
           </>
-        )} */}
+        )}
       </div>
     </div>
   );

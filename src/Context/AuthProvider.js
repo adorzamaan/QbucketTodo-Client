@@ -5,11 +5,13 @@ import {
   getAuth,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signOut,
+  updateProfile,
 } from "firebase/auth";
 import app from "../Firebase/Firebase.init";
 const auth = getAuth(app);
 
-const authContext = createContext();
+export const authContext = createContext();
 
 const AuthProvider = ({ children }) => {
   const [user, setUser] = useState({});
@@ -29,6 +31,19 @@ const AuthProvider = ({ children }) => {
   };
 
   // user update function
+  const updateUserProfile = (name, photo) => {
+    setLoading(true);
+    return updateProfile(auth.currentUser, {
+      displayName: name,
+      photoURL: photo,
+    });
+  };
+  // logout Function
+
+  const logOut = () => {
+    setLoading(true);
+    return signOut(auth);
+  };
 
   // user observer function
 
@@ -42,7 +57,16 @@ const AuthProvider = ({ children }) => {
     };
   }, []);
 
-  const authInfo = { user, setUser, loading, setLoading, createUser, signIn };
+  const authInfo = {
+    user,
+    setUser,
+    loading,
+    setLoading,
+    createUser,
+    signIn,
+    updateUserProfile,
+    logOut,
+  };
   return (
     <authContext.Provider value={authInfo}>{children}</authContext.Provider>
   );
