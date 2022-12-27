@@ -70,7 +70,7 @@ const Header = () => {
         </button>
        */}
        <DarkLightMode></DarkLightMode>
-      <Link to='/'><PrimaryButton>Login</PrimaryButton></Link>
+      <Link to='/login'><PrimaryButton>Login</PrimaryButton></Link>
         {/* {user && user.uid ? (
           <>
             <button

@@ -6,6 +6,8 @@ import MyTask from '../Components/MyTask/MyTask';
 import ErrorPage from '../Components/Shared/ErrorPage/ErrorPage';
 import Main from '../Main/Main';
 import Home from '../Pages/Home/Home';
+import Login from '../Pages/SocialLogin/Login/Login';
+import Signup from '../Pages/SocialLogin/SignUp/Signup';
 
 const Routes = () => {
     const routes = createBrowserRouter([
@@ -29,6 +31,14 @@ const Routes = () => {
                 {
                     path:'/completedtask',
                     element:<CompletedTask></CompletedTask>
+                },
+                {
+                    path:'/login',
+                    element:<Login></Login>
+                },
+                {
+                    path:'/signup',
+                    element:<Signup></Signup>
                 }
             ]
         }
