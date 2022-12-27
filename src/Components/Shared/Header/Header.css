@@ -1,0 +1,11 @@
+.cusotmClass a {
+  padding: 7px 15px;
+  font-weight: 500;
+  left: 0 !important;
+}
+.menu li {
+  display: none;
+}
+.icon:hover .menu li {
+  display: block !important;
+}
