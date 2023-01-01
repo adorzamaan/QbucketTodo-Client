@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { authContext } from "../../Context/AuthProvider";
+import SmallSpinner from "../Shared/Spinner/SmallSpinner";
 
 const AddTask = () => {
   const { register, handleSubmit } = useForm();
   const { user } = useContext(authContext);
+  const [loading,setLoading] = useState(false)
   const handleAddTask = (data) => {
     const date = new Date().toLocaleDateString();
     const time = new Date().toLocaleTimeString();
@@ -19,6 +21,8 @@ const AddTask = () => {
     })
       .then((res) => res.json())
       .then((imageData) => {
+        setLoading(true)
+      if(imageData.success){
         console.log(imageData);
         const addtask = {
           name: data.name,
@@ -38,15 +42,17 @@ const AddTask = () => {
         })
           .then((res) => res.json())
           .then((result) => {
+            setLoading(false)
             if (result.acknowledged > 0) {
               toast.success(`Hey ${data.name} your task Added Successfully`);
             }
           });
+      }
       });
   };
 
   return (
-    <div className="px-12  flex justify-center items-center dark:text-white">
+    <div className="px-12 flex justify-center items-center dark:text-white">
       <div>
         <h3 className="font-bold py-6">Add New Task</h3>
         <div className=" w-full md:p-8 space-y-3 rounded-xl shadow-sm ">
@@ -110,7 +116,7 @@ const AddTask = () => {
               type="submit"
               className="block w-full py-1 px-6 dark:hover:bg-accent dark:bg-gray-700 text-center rounded-sm text-white hover:bg-accent bg-slate-800"
             >
-              Add
+              {loading ? <SmallSpinner></SmallSpinner>:"Add"}
             </button>
           </form>
         </div>
